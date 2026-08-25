@@ -1,6 +1,18 @@
-# Holy PMChiffon - Antigravity Skills Backup
+# Holy PMChiffon (Antigravity Skills Backup)
 
-This repository contains the backup of Antigravity AI skills, configurations, workflows, and contexts for @pepoalone11.
+## 🧐 holy-PMChiffon คืออะไร? (สำหรับอ่านทบทวนความจำ)
+โปรเจกต์นี้คือ **"สมองส่วนกลาง"** และ **"ศูนย์บัญชาการ Workflow"** ของ AI Assistant (Antigravity/Gemini) ประจำตัวของคุณ (@pepoalone11) 
+
+โดยปกติแล้ว Antigravity จะเก็บการตั้งค่าทุกอย่างไว้ที่ `~/.gemini` ในเครื่องคอมพิวเตอร์ ซึ่งถ้าเครื่องพังหรือต้องไปทำงานเครื่องอื่น Skill พวกนี้ก็จะหายไป Repo นี้จึงถูกสร้างขึ้นมาเพื่อ**สำรองข้อมูลการทำงาน (Backup)** และ **ซิงค์ (Sync)** สิ่งเหล่านี้ครับ:
+- **🤖 Custom Agents:** เอเจนต์เฉพาะทางที่คุณสร้างไว้ เช่น `sa` (System Analyst), `lamy` (Tech Lead), `tony` (QA), และแก๊ง `holy` ทั้งหลาย
+- **🧠 Skills & Workflows:** กระบวนการทำงานเป็นทีม (`team-flow`), การเรียนรู้ Codebase (`holy-learn`), และทักษะเฉพาะทางอื่นๆ
+- **🧩 Plugins & Configs:** ชุดข้อมูล UI/UX (`ui-ux-pro-max`), ปลั๊กอินเสริม (`ponytail`)
+- **📜 Context & Rules:** กฎเกณฑ์และบริบทการทำงานต่างๆ (.md)
+
+## ⚙️ ระบบนี้ทำงานยังไง?
+1. **ปลอดภัย 100% (Strict Security):** ไฟล์ที่เป็นความลับ เช่น ประวัติการสนทนา, Token Login (`google_accounts.json`), และไฟล์ชั่วคราวต่างๆ จะ **ถูกบล็อกไม่ให้ขึ้น Repo เด็ดขาด** ผ่านไฟล์ `.gitignore` ที่ตั้งค่าแบบ Allowlist (อนุญาตเฉพาะไฟล์ที่ปลอดภัย)
+2. **อัพเดตง่ายดาย (Easy Update):** เมื่อคุณแก้ไข Prompt, เขียน Skill ใหม่ หรืออัพเดต Flow จบ คุณแค่เปิด Terminal พิมพ์คำสั่งลัด `sync-gemini` ระบบจะทำการ Save และ Push ขึ้น GitHub ให้ทันที
+3. **พกพาไปได้ทุกที่ (Portable):** หากย้ายไปใช้เครื่องอื่น คุณสามารถสั่ง AI (เช่น สั่งผม) ให้มาดึงข้อมูลจาก Repo นี้ไปติดตั้งได้เลย โดยที่ AI จะติดตั้งได้อย่างถูกต้องและไม่ทำให้ข้อมูล Login ของเครื่องใหม่พัง
 
 ---
 
@@ -41,7 +53,10 @@ git checkout -t origin/main -f 2>/dev/null || git reset --hard origin/main
 if ! grep -q "sync-gemini" ~/.zshrc; then
   echo '\n# Sync Gemini Skills to GitHub' >> ~/.zshrc
   echo 'alias sync-gemini="git -C ~/.gemini add . && git -C ~/.gemini commit -m \"Auto update: \$(date +'\''%Y-%m-%d %H:%M:%S'\'')\" && git -C ~/.gemini push"' >> ~/.zshrc
+  echo "✅ Added 'sync-gemini' alias to ~/.zshrc"
 fi
+
+echo "✅ Setup complete! The AI skills and contexts have been successfully synced."
 ```
 
 ### Post-Installation
