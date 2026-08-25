@@ -1,0 +1,14 @@
+{
+  "id":  "ac475fa4-948f-4dfb-9a88-f4a39cb7342e",
+  "name":  "/Users/teerawat",
+  "projectResources":  {
+    "resources":  [
+      {
+        "gitFolder":  {
+          "folderUri":  "file:///Users/teerawat",
+          "allowWrite":  true
+        }
+      }
+    ]
+  }
+}

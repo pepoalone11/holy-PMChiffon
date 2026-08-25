@@ -1,0 +1,64 @@
+{
+  "agent-halo": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node /Users/teerawat/.gemini/config/hooks/agent-halo-agy-hook.mjs --event PostToolUse",
+            "type": "command"
+          }
+        ],
+        "matcher": ".*"
+      }
+    ],
+    "PreInvocation": [
+      {
+        "command": "node /Users/teerawat/.gemini/config/hooks/agent-halo-agy-hook.mjs --event PreInvocation",
+        "type": "command"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "node /Users/teerawat/.gemini/config/hooks/agent-halo-agy-hook.mjs --event PreToolUse",
+            "type": "command"
+          }
+        ],
+        "matcher": ".*"
+      }
+    ],
+    "Stop": [
+      {
+        "command": "node /Users/teerawat/.gemini/config/hooks/agent-halo-agy-hook.mjs --event Stop",
+        "type": "command"
+      }
+    ]
+  },
+  "herdr": {
+    "PreInvocation": [
+      {
+        "command": "bash '/Users/teerawat/.gemini/config/hooks/herdr-agent-state.sh' session",
+        "timeout": 10,
+        "type": "command"
+      }
+    ]
+  },
+  "moshi-hook": {
+    "PreInvocation": [
+      {
+        "command": "'/opt/homebrew/bin/moshi' antigravity-hook PreInvocation",
+        "timeout": 5,
+        "type": "command"
+      }
+    ],
+    "Stop": [
+      {
+        "command": "'/opt/homebrew/bin/moshi' antigravity-hook Stop",
+        "timeout": 5,
+        "type": "command"
+      }
+    ],
+    "enabled": true
+  }
+}

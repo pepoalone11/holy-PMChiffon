@@ -1,0 +1,13 @@
+{
+  "plugins": {
+    "ponytail": {
+      "enabled": true
+    },
+    "ui-ux-pro-max": {
+      "enabled": true
+    }
+  },
+  "userSettings": {
+    "remoteControlHostname": "teerawats-macbook-air-local-swift-surge"
+  }
+}

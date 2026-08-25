@@ -1,0 +1,20 @@
+{
+  "imports": [
+    {
+      "name": "ponytail",
+      "source": "gemini-cli",
+      "importedAt": "2026-06-17T08:50:12Z",
+      "components": [
+        "skills",
+        "commands",
+        "hooks"
+      ]
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "source": "claude-code",
+      "importedAt": "2026-06-17T09:10:35Z",
+      "components": null
+    }
+  ]
+}

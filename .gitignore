@@ -1,0 +1,26 @@
+# Ignore everything by default to ensure maximum security
+/*
+
+# Explicitly un-ignore safe directories and files
+!/config/
+!/skills/
+!/*.md
+!/.gitignore
+
+# If there are __pycache__ inside config/ or skills/, ignore them
+__pycache__/
+*.pyc
+
+# Explicitly ignore known sensitive files just to be 100% redundant
+/google_accounts.json
+/installation_id
+/settings.json
+/projects.json
+/trustedFolders.json
+/state.json
+/agent-halo-state.json
+/*.log
+/history/
+/tmp/
+/antigravity/
+/antigravity-cli/
