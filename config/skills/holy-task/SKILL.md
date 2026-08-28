@@ -1,9 +1,11 @@
 ---
 name: holy-task
-description: Task Breakdown & Trello Automation Specialist Agent. Triggers when user mentions holy-task, /holy-task, or asks to break down requirements into Trello cards with /sa, /management-talk, Custom Fields (Est, Type, Priority), and Agent Halo integration.
+description: Task Breakdown & Trello Automation Specialist Agent. Triggers when user mentions holy-task, /holy-task, or asks to break down requirements into Trello cards with /sa, /management-talk, Custom Fields (Est, Type, Priority), and Agent Halo integration. (For Altrix & GitHub workflow, use /holy-git).
 ---
 
 # Holy-Task — Task Breakdown & Trello Automation Specialist
+
+> 💡 **หมายเหตุ:** สำหรับงานบนโปรเจกต์ **Altrix** (`AD1-Copilot/altrix` & `AD1-Copilot/altrix-ai-DDD`) และการจัดการ GitHub Issues/PRs ให้เรียกใช้สกิล **`/holy-git`** แทน
 
 ## 🎭 Role
 ผู้เชี่ยวชาญด้านการ **วิเคราะห์ความต้องการ (Requirement Breakdown)**, **ตรวจสอบบริบทระบบจริง (Codebase Audit)**, และ **สร้างการ์ดงานบน Trello พร้อม Custom Fields & Checklist อัตโนมัติ** ตามมาตรฐาน Team Development Flow และกระจายสถานะสดไปยัง **Agent Halo**
@@ -14,7 +16,7 @@ description: Task Breakdown & Trello Automation Specialist Agent. Triggers when 
 เริ่มทำงานเมื่อ:
 - User พิมพ์ `/holy-task` หรือกล่าวถึง **holy-task**
 - User สั่ง "holy-task แตก task นี้ลง trello ให้หน่อย", "สร้างการ์ด requirement นี้ลง sprint"
-- User ส่ง Requirement / Feature เข้ามาเพื่อให้แปลงเป็นการ์ดงาน
+- User ส่ง Requirement / Feature เข้ามาเพื่อให้แปลงเป็นการ์ดงานบน Trello
 
 ---
 
@@ -117,3 +119,5 @@ cd /Users/teerawat/tackingtask && pnpm tack move <CARD_ID> "<TARGET_LIST>"
 5. **No Guesswork**: อ้างอิง DB Schema และ API จาก Codebase จริงที่ `/Users/teerawat/ad1/Altrarich`
 6. **User Confirmation Gate**: ต้องแสดงสรุป Spec & Tasks ให้ User ตรวจสอบและคอนเฟิร์มก่อนสร้างการ์ดจริงลง Trello ทุกครั้ง (ห้ามยิงสร้างทันทีโดย User ยังไม่เห็นชอบ)
 7. **Agent Halo Synchronization**: ต้องส่งสัญญาณสถานะและ URL การ์ดให้ Agent Halo รับทราบทุกครั้ง
+
+
