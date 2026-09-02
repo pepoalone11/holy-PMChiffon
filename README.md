@@ -49,8 +49,14 @@ git fetch origin
 # (This safely applies tracked files like config/ and skills/ without touching ignored untracked files)
 git checkout -t origin/main -f 2>/dev/null || git reset --hard origin/main
 
-# 6. Setup the auto-sync alias for the user
-if ! grep -q "sync-gemini" ~/.zshrc; then
+# 6. Setup user rules & agent skills (~/.agents & ~/.agent)
+mkdir -p ~/.agents/skills ~/.agent/skills
+cp ~/.gemini/AGENTS.md ~/.agents/AGENTS.md 2>/dev/null || true
+cp -r ~/.gemini/skills/debug-mantra ~/.gemini/skills/management-talk ~/.gemini/skills/post-mortem ~/.gemini/skills/qwen-agent ~/.gemini/skills/qwenchance ~/.gemini/skills/scrutinize ~/.agents/skills/ 2>/dev/null || true
+cp -r ~/.gemini/skills/ui-ux-pro-max ~/.agent/skills/ 2>/dev/null || true
+
+# 7. Setup the auto-sync alias for the user
+if ! grep -q "sync-gemini" ~/.zshrc 2>/dev/null; then
   echo '\n# Sync Gemini Skills to GitHub' >> ~/.zshrc
   echo 'alias sync-gemini="git -C ~/.gemini add . && git -C ~/.gemini commit -m \"Auto update: \$(date +'\''%Y-%m-%d %H:%M:%S'\'')\" && git -C ~/.gemini push"' >> ~/.zshrc
   echo "✅ Added 'sync-gemini' alias to ~/.zshrc"
@@ -61,3 +67,4 @@ echo "✅ Setup complete! The AI skills and contexts have been successfully sync
 
 ### Post-Installation
 After executing the script, inform the user that the setup is complete and they can now use the `sync-gemini` command in their terminal to push future updates.
+

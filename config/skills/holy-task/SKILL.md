@@ -26,9 +26,9 @@ description: Task Breakdown & Trello Automation Specialist Agent. Triggers when 
 User Requirement
        │
        ▼
-[1. Codebase Context Inspection]
-    - อ่าน DB Schema, API Specs, House Rules จาก /Users/teerawat/ad1/Altrarich
-    - ดึง Branch, Commit History เพื่อป้องกันการเดา Schema เอง
+[1. Codebase & GitHub Context Inspection]
+    - ตรวจสอบ Codebase และ Schema จาก GitHub Repositories ของโปรเจกต์ `p8-altrarich` โดยตรง (เช่น `AD1-Copilot/p8-altrarich-backend`, `AD1-Copilot/p8-altrarich-frontend`, `AD1-Copilot/p8-altrarich-frontend-admin` บน branch `development`/`main`) ผ่าน gh CLI / GitHub API
+    - ดึง Branch, Commit History ล่าสุด, DB Schema, API Specs และ Service Implementations เพื่อป้องกันการเดาโค้ดเอง
        │
        ▼
 [2. SA Task Breakdown (/sa)]
@@ -62,7 +62,8 @@ User Requirement
     - ส่ง Event Lifecycle และ Trello Card URLs ไปยัง Agent Halo Dashboard/Overlay
        │
        ▼
-[7. Summary & Card Links Report]
+[7. Cross-Link Paired Cards & Summary Report]
+    - อัปเดต Description ข้ามลิงก์หากันระหว่างการ์ดคู่ [BE] ⟷ [FE] ⟷ [QA] (`🔗 Related Tasks / Paired Cards`)
     - สรุปผลให้ User พร้อม Direct Markdown Links สำหรับเปิดดูการ์ดบน Trello
 ```
 
@@ -116,8 +117,9 @@ cd /Users/teerawat/tackingtask && pnpm tack move <CARD_ID> "<TARGET_LIST>"
 2. **Complete Card Description**: รายละเอียด Technical Specs, Endpoints, Headers, Webhook Events ทั้งหมดที่วิเคราะห์ได้ ต้องใส่ลงใน **Card Description** ของการ์ด Trello ให้ครบถ้วนสมบูรณ์ ห้ามตัดทอน
 3. **Safe Shell / API Payload**: เมื่อส่ง Markdown Description ไปยัง Trello API ต้องระวัง Shell command injection / syntax expansion (หลีกเลี่ยงการส่ง backtick/quote ผ่าน bash ตรง ๆ หรือใช้ API Script โดยตรงเพื่อป้องกันข้อมูลหาย)
 4. **Acceptance Criteria Mandatory**: ทุกการ์ดต้องมี Checklist ไม่น้อยกว่า 3 ข้อ
-5. **No Guesswork**: อ้างอิง DB Schema และ API จาก Codebase จริงที่ `/Users/teerawat/ad1/Altrarich`
+5. **No Guesswork & Mandatory GitHub Verification (p8-altrarich)**: ต้องตรวจสอบความถูกต้องของ Schema, Service Logic, Controller, และ Entity จาก **GitHub Codebase จริงของโปรเจกต์ `p8-altrarich`** (`AD1-Copilot/p8-altrarich-*` เช่น `p8-altrarich-backend`, `p8-altrarich-frontend` บน `development` branch) ผ่าน GitHub CLI / API เสมอ เพื่อให้มั่นใจว่าอ้างอิงจากโค้ดเวอร์ชันล่าสุดของทีม ไม่เดาเองเด็ดขาด
 6. **User Confirmation Gate**: ต้องแสดงสรุป Spec & Tasks ให้ User ตรวจสอบและคอนเฟิร์มก่อนสร้างการ์ดจริงลง Trello ทุกครั้ง (ห้ามยิงสร้างทันทีโดย User ยังไม่เห็นชอบ)
 7. **Agent Halo Synchronization**: ต้องส่งสัญญาณสถานะและ URL การ์ดให้ Agent Halo รับทราบทุกครั้ง
+8. **Mandatory Native Card Attachment & Cross-Linking**: การ์ดงานที่เป็นคู่กันหรือเกี่ยวข้องกัน (เช่น `[BE]` กับ `[FE]`, `[BE]` กับ `[QA]`, หรือ Gateway Integration ครบชุด) จะต้องทำการ **ผูกการ์ดเข้าด้วยกันผ่าน Trello Native Card Attachment (แนบการ์ด Trello เข้าหากัน)** และใส่ Link URL ของการ์ดที่เกี่ยวข้อง (`🔗 Related Tasks / Paired Cards`) ใน Description ของกันและกันเสมอ ตามมาตรฐานของการ์ด #625 เพื่อให้ทีม Dev และ QA สามารถคลิกเปิดการ์ดคู่ที่แนบไว้ได้โดยตรงทันที
 
 
