@@ -16,6 +16,29 @@
 
 ---
 
+## 💻 วิธีติดตั้งบนเครื่องใหม่ (Quick Install สำหรับผู้ใช้งาน)
+
+หากคุณเปิดเครื่องใหม่ หรือย้ายไปทำงานเครื่องอื่น สามารถ Copy คำสั่งชุดนี้ไปวางใน **Terminal** ได้ทันที:
+
+```bash
+mkdir -p ~/.gemini && cd ~/.gemini && \
+if [ ! -d ".git" ]; then git init; fi && \
+git remote add origin https://github.com/pepoalone11/holy-PMChiffon.git 2>/dev/null || true && \
+git fetch origin && \
+(git checkout -t origin/main -f 2>/dev/null || git reset --hard origin/main) && \
+mkdir -p ~/.agents/skills ~/.agent/skills && \
+cp ~/.gemini/AGENTS.md ~/.agents/AGENTS.md 2>/dev/null || true && \
+cp -r ~/.gemini/skills/debug-mantra ~/.gemini/skills/management-talk ~/.gemini/skills/post-mortem ~/.gemini/skills/qwen-agent ~/.gemini/skills/qwenchance ~/.gemini/skills/scrutinize ~/.agents/skills/ 2>/dev/null || true && \
+cp -r ~/.gemini/skills/ui-ux-pro-max ~/.agent/skills/ 2>/dev/null || true && \
+if ! grep -q "sync-gemini" ~/.zshrc 2>/dev/null; then \
+  echo '\n# Sync Gemini Skills to GitHub' >> ~/.zshrc; \
+  echo 'alias sync-gemini="git -C ~/.gemini add . && git -C ~/.gemini commit -m \"Auto update: \$(date +'\''%Y-%m-%d %H:%M:%S'\'')\" && git -C ~/.gemini push"' >> ~/.zshrc; \
+fi && \
+echo "✅ ติดตั้ง Skills เรียบร้อย พร้อมใช้งานทันที!"
+```
+
+---
+
 ## 🤖 Instructions for AI Agents (System Setup)
 
 **Dear AI Agent (Antigravity, Gemini, etc.):** 
