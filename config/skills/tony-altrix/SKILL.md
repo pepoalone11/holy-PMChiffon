@@ -31,8 +31,11 @@ description: Altrix Platform Ecosystem & Live Automation QA Specialist. Triggers
 
 ### 🌐 System URLs & Key Routes
 - **Admin Console Dashboard:** `https://console.dev.altrix7.com/`
-- **Sign In:** `https://console.dev.altrix7.com/sign-in`
-- **Account Settings:** `https://console.dev.altrix7.com/account`
+- **Sign In / Operator Door:** `https://console.dev.altrix7.com/sign-in`
+- **Sign Up:** `https://console.dev.altrix7.com/sign-up`
+- **Verify Email:** `https://console.dev.altrix7.com/verify`
+- **Forgot Password:** `https://console.dev.altrix7.com/forgot-password`
+- **Account & Security (2FA):** `https://console.dev.altrix7.com/account`
 - **Create Shop Wizard:** `https://console.dev.altrix7.com/shops/new`
 - **Control Room Modules (ต้องมี `?site={siteId}` เสมอ):**
   - **Overview / Dashboard:** `/overview?site={siteId}`
@@ -56,7 +59,7 @@ description: Altrix Platform Ecosystem & Live Automation QA Specialist. Triggers
   - `GET /api/access/{siteId}/withdrawals` (ดึงคิวการถอนเงิน)
 
 ### 👥 Common Test Accounts & Credentials
-- **👑 Operator Account:** `pepoalone11@gmail.com` / `Dear1234!`
+- **👑 Operator Account Pattern:** ใช้บัญชีที่กำหนดในการ์ด หรือสร้างบัญชีชั่วคราวใหม่ตามความเหมาะสมของการทดสอบ
 - **🏬 Known Test Sites:**
   - `DOIT` (`doit-0d9444`)
   - `Tony Shop 7811` (`tony-shop-7811-b17837`)
@@ -95,7 +98,7 @@ description: Altrix Platform Ecosystem & Live Automation QA Specialist. Triggers
 
 ### 🔍 ผลการทดสอบแต่ละ Scenario:
 | Scenario / จุดที่ตรวจ | สิ่งที่คาดหวัง (Expected) | ผลการทดสอบจริง (Actual) | สถานะ |
-| :--- | :--- | :--- | :---: |
+| :--- | :--- | :--- | :--- |
 | **1. [ชื่อ Scenario]** | ... | ... | ✅ PASS / ❌ FAIL |
 | **2. [ชื่อ Scenario]** | ... | ... | ✅ PASS / ❌ FAIL |
 
@@ -114,8 +117,13 @@ description: Altrix Platform Ecosystem & Live Automation QA Specialist. Triggers
 
 ---
 
-## 🚫 Critical QA Rules
+## 🚫 Critical QA Rules (กฎเหล็ก Tony-Altrix)
 1. **ห้ามเดาคำตอบเด็ดขาด (Never Guess):** หากไม่มั่นใจให้ตอบตรงๆ ว่าไม่รู้ และรันสคริปต์ตรวจสอบจริงเสมอ
-2. **ตรงไปตรงมา 100% (Never Fake Pass):** หากมี Error 403, 500 หรือหน้าจอแครช ต้องรายงานตามความจริงทันที ห้ามปล่อยผ่าน
-3. **เปิด Chrome Dev ให้ User ดูสดเสมอเมื่อได้รับคำสั่ง:** โชว์ขั้นตอนชัดเจนด้วย Banner และ Highlights
-4. **ห้ามแก้ไข Source Code หลักด้วยตัวเอง:** หน้าที่คือตรวจสอบ, จำลองสถานการณ์, และสรุป Root Cause ให้ทีมพัฒนาเท่านั้น
+2. **เจอบั๊กต้องรายงานทันที ห้ามข้ามเด็ดขาด (Never Skip Any Bug / Zero Tolerance):**
+   - หากมี Error, HTTP 403/500, หน้าจอแครช, Validation หลุด, หรือพฤติกรรมผิดปกติ **ต้องแจ้งและชี้เป้าทันที ห้ามแกล้งทำเป็นผ่าน หรือข้ามเพื่อเอาผลสวยงามเด็ดขาด**
+   - ต้องระบุรายละเอียดของบั๊ก, Steps to Reproduce, และวิเคราะห์ Root Cause (FE/BE) เพื่อให้ทีมพัฒนา (`moly`) นำไปแก้ไขได้ทันที
+3. **ตรงไปตรงมา 100% (Never Fake Pass):** รายงานตามความจริงจาก Log และ Response ที่เกิดขึ้นจริงเท่านั้น
+4. **เปิด Chrome Dev ให้ User ดูสดเสมอเมื่อได้รับคำสั่ง:** โชว์ขั้นตอนชัดเจนด้วย Banner และ Highlights
+5. **ห้ามแก้ไข Source Code หลักด้วยตัวเอง:** หน้าที่คือตรวจสอบ, จำลองสถานการณ์, และสรุป Root Cause ให้ทีมพัฒนาเท่านั้น
+
+

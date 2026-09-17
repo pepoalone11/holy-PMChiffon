@@ -32,7 +32,11 @@ User Requirement
        │
        ▼
 [2. SA Task Breakdown (/sa)]
-    - แตก Task แยก [BE] และ [FE] ออกจากกันชัดเจน (ห้ามรวมกันเด็ดขาด)
+    - วิเคราะห์ความจำเป็นจริงของขอบเขตงาน (Contextual Necessity): **ห้ามบังคับสร้างเป็นการ์ดคู่ [BE] + [FE] เสมอไป** ให้สร้างตามความจำเป็นจริงของงานเท่านั้น
+      * หากเป็น **Backend-Only** (เช่น Internal logic, Gateway optimization, Cron job, DB migration ที่ API Contract ไม่เปลี่ยนและไม่กระทบ UI) ➡️ **สร้างเฉพาะ [BE] (+ [QA]) ห้ามสร้าง [FE] ให้รกบอร์ด**
+      * หากเป็น **Frontend-Only** (เช่น UI redesign, Styling, Client-side validation) ➡️ **สร้างเฉพาะ [FE] (+ [QA]) ห้ามสร้าง [BE]**
+      * สร้างเป็นคู่ **[BE] ⟷ [FE] เฉพาะเมื่อมีงานทั้งสองฝั่งจริง ๆ** (เช่น Feature ใหม่ที่มีทั้ง API ใหม่และ UI ใหม่, หรือมีการเปลี่ยน API Contract ที่กระทบ FE)
+    - หากมีทั้ง [BE] และ [FE] ต้องแยกการ์ดกันชัดเจน (ห้ามรวมกันในการ์ดเดียว)
     - กำหนด Acceptance Criteria (AC) ไม่ต่ำกว่า 3 ข้อต่อ Task
     - กำหนด Endpoint, Payload, DB changes สำหรับ BE
     - กำหนด Component, UI States (Loading/Error/Success/Empty) สำหรับ FE
@@ -113,7 +117,10 @@ cd /Users/teerawat/tackingtask && pnpm tack move <CARD_ID> "<TARGET_LIST>"
 
 ## 🛑 Critical Rules (กฎเหล็ก)
 
-1. **Strict FE/BE Separation**: ห้ามรวมงาน Frontend และ Backend ไว้ในการ์ดเดียวกัน ต้องแตกแยกใบเสมอ
+1. **Contextual Necessity & Strict Separation**: **ห้ามสร้างการ์ดเป็นคู่ [BE] + [FE] โดยไม่จำเป็นเด็ดขาด** ให้วิเคราะห์เนื้องานจริงก่อนเสมอ:
+   - หากเป็นงาน **Backend-Only** (เช่น internal logic, gateway optimization, DB change ที่ API contract ไม่เปลี่ยนและไม่กระทบ UI) ➡️ **สร้างเฉพาะ `[BE]` (+ `[QA]`) ห้ามสร้าง `[FE]` เด็ดขาด**
+   - หากเป็นงาน **Frontend-Only** (เช่น UI redesign, styling, client-side validation) ➡️ **สร้างเฉพาะ `[FE]` (+ `[QA]`) ห้ามสร้าง `[BE]` เด็ดขาด**
+   - สร้างเป็นการ์ดคู่ `[BE] ⟷ [FE]` **เฉพาะเมื้องานนั้นต้องแก้โค้ดทั้งสองฝั่งจริง ๆ เท่านั้น** (และห้ามรวมไว้ในการ์ดเดียวกัน)
 2. **Complete Card Description**: รายละเอียด Technical Specs, Endpoints, Headers, Webhook Events ทั้งหมดที่วิเคราะห์ได้ ต้องใส่ลงใน **Card Description** ของการ์ด Trello ให้ครบถ้วนสมบูรณ์ ห้ามตัดทอน
 3. **Safe Shell / API Payload**: เมื่อส่ง Markdown Description ไปยัง Trello API ต้องระวัง Shell command injection / syntax expansion (หลีกเลี่ยงการส่ง backtick/quote ผ่าน bash ตรง ๆ หรือใช้ API Script โดยตรงเพื่อป้องกันข้อมูลหาย)
 4. **Acceptance Criteria Mandatory**: ทุกการ์ดต้องมี Checklist ไม่น้อยกว่า 3 ข้อ
