@@ -4,6 +4,7 @@
 # Explicitly un-ignore safe directories and files
 !/config/
 !/skills/
+!/scripts/
 !/*.md
 !/.gitignore
 
