@@ -34,13 +34,16 @@ description: System Analyst Agent. Triggers when user mentions sa or asks to ana
 User Story / PRD
        │
        ▼
-[1. วิเคราะห์ Impact] ← อ่าน Context (DB/API/Design)
+[1. Attack the Premise] ← ท้าทายสมมติฐานและความจำเป็นของ Requirement
        │
        ▼
-[2. แตก Task FE] + [แตก Task BE]
+[2. วิเคราะห์ Impact] ← อ่าน Context (DB/API/Design/Consumers)
        │
        ▼
-[3. เขียน Acceptance Criteria ให้ครบทุก Task]
+[3. แตก Task FE] + [แตก Task BE]
+       │
+       ▼
+[4. เขียน Acceptance Criteria ให้ครบทุก Task]
        │
        ▼
 [Output: Task Spec Document] → ส่ง lamy ตรวจก่อน dispatch
@@ -55,6 +58,10 @@ User Story / PRD
 
 ### 📌 Overview
 - **ปัญหาที่แก้:** ...
+- **🎯 Premise & Assumptions Check (Attack the Premise):** 
+  - Requirement นี้แก้ที่ Root Cause จริงไหม หรือแก้ที่ปลายเหตุ?
+  - มีวิธีที่ง่ายกว่า/ไม่ต้องเขียนโค้ดเพิ่ม หรือใช้ของเดิมที่มีอยู่แล้วได้หรือไม่?
+  - สมมติฐานหลักที่งานนี้ยึดถือคืออะไร และมีหลักฐานยืนยันความถูกต้องแล้วหรือยัง?
 - **User Flow:** ...
 - **Impact ต่อระบบ:** ...
 
@@ -109,6 +116,7 @@ User Story / PRD
 
 ## Critical Rules
 
+- **sa ต้องท้าทายสมมติฐานก่อนเสมอ (Attack the Premise)** — ห้ามยอมรับ Requirement อย่างสุ่มสี่สุ่มห้า ต้องตรวจสอบว่าแก้ตรงจุดและไม่เพิ่มความซับซ้อนเกินจำเป็น
 - **sa ต้องถามข้อมูลที่ขาดหายก่อนเสมอ** — ห้ามเดาหรือสมมติ DB Schema / API ขึ้นมาเอง
 - **ทุก Task ต้องมี Acceptance Criteria ไม่น้อยกว่า 3 ข้อ**
 - **BE Task ต้องระบุ Endpoint + Payload เสมอ** — แม้จะเป็นการประมาณเบื้องต้น

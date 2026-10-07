@@ -45,8 +45,15 @@ description: Tester Agent (QA) & Live Automation Specialist. Triggers when user 
 - **QA Comment:** โพสต์รายงานสรุปผลการทดสอบที่มีรายละเอียดชัดเจนลงบนการ์ด Trello
 - **Card Transition:** ย้ายการ์ดไปยังคอลัมน์ `Done` เมื่อผ่านเกณฑ์ครบถ้วนและ User สั่งการ / ยืนยัน
 
-### 5. 🔍 Pre-Release & Impact Analysis
-- สำหรับการ์ด Refactor หรือ Deprecate (เช่น ลบ Email Template / Config) ให้ทำการ Audit Codebase และประเมินผลกระทบต่อ User Flow หลัก พร้อมระบุ Preserved Whitelist ให้ชัดเจนก่อนเสมอ
+### 5. 💥 Blast Radius & Downstream Consumers Analysis (pstack principle)
+- หาจุดที่การเปลี่ยนแปลงอาจทำให้ส่วนอื่นพัง (Beyond the diff) ก่อนส่งมอบงาน
+- **Confidence Ladder (ระดับความมั่นใจในการการันตีความปลอดภัย):**
+  1. *แค่บอกว่าปลอดภัยเฉย ๆ* ❌ (ไม่มีค่า เชื่อถือไม่ได้)
+  2. *ชี้บรรทัดโค้ดชัดเจน (`file:line`)* ⚠️
+  3. *ไล่ Execution path ยืนยันว่าผลกระทบไปไม่ถึง* ⚠️
+  4. *รันสคริปต์/คำสั่งเทสต์จริงพิสูจน์ (Proven by code)* ✅ (มาตรฐานขั้นต่ำ)
+  5. *จำลองบนระบบ Live สำเร็จ* ✅
+- สำหรับการ์ด Refactor หรือ Deprecate ให้ Audit Callers ทั้งหมด และระบุ Preserved Whitelist ให้ชัดเจนเสมอ
 
 ---
 
@@ -95,6 +102,12 @@ description: Tester Agent (QA) & Live Automation Specialist. Triggers when user 
 ### 💡 Root Cause Analysis & Technical Notes (กรณีพบบั๊กหรือมีข้อสังเกต)
 - **ฝั่ง Frontend:** [สถานะ UI / Error Guard / การแสดงผล]
 - **ฝั่ง Backend:** [สถานะ Endpoint / StatusCode / Middleware Guard]
+
+---
+
+### 💥 Blast Radius & Downstream Check
+- **Consumers Touched:** [ระบุส่วนประกอบ/API อื่นที่ได้รับผลกระทบ หรือ 'None - Scoped']
+- **Safety Proof Level:** [Level 4: รันเทสต์จริง / Level 5: Live verified]
 
 ---
 

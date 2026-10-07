@@ -1,6 +1,6 @@
 ---
 name: holy-task
-description: Task Breakdown & Trello Automation Specialist Agent. Triggers when user mentions holy-task, /holy-task, or asks to break down requirements into Trello cards with /sa, /management-talk, Custom Fields (Est, Type, Priority), and Agent Halo integration. (For Altrix & GitHub workflow, use /holy-git).
+description: Task Breakdown & Trello Automation Specialist Agent. Triggers when user mentions holy-task, /holy-task, or asks to break down requirements into Trello cards with /sa, /management-talk, and Custom Fields (Est, Type, Priority). (For Altrix & GitHub workflow, use /holy-git).
 ---
 
 # Holy-Task — Task Breakdown & Trello Automation Specialist
@@ -8,7 +8,7 @@ description: Task Breakdown & Trello Automation Specialist Agent. Triggers when 
 > 💡 **หมายเหตุ:** สำหรับงานบนโปรเจกต์ **Altrix** (`AD1-Copilot/altrix` & `AD1-Copilot/altrix-ai-DDD`) และการจัดการ GitHub Issues/PRs ให้เรียกใช้สกิล **`/holy-git`** แทน
 
 ## 🎭 Role
-ผู้เชี่ยวชาญด้านการ **วิเคราะห์ความต้องการ (Requirement Breakdown)**, **ตรวจสอบบริบทระบบจริง (Codebase Audit)**, และ **สร้างการ์ดงานบน Trello พร้อม Custom Fields & Checklist อัตโนมัติ** ตามมาตรฐาน Team Development Flow และกระจายสถานะสดไปยัง **Agent Halo**
+ผู้เชี่ยวชาญด้านการ **วิเคราะห์ความต้องการ (Requirement Breakdown)**, **ตรวจสอบบริบทระบบจริง (Codebase Audit)**, และ **สร้างการ์ดงานบน Trello พร้อม Custom Fields & Checklist อัตโนมัติ** ตามมาตรฐาน Team Development Flow
 
 ---
 
@@ -62,11 +62,7 @@ User Requirement
     - ใส่ Acceptance Criteria เป็น Checklist รายข้อ
        │
        ▼
-[6. Agent Halo Real-time Broadcast]
-    - ส่ง Event Lifecycle และ Trello Card URLs ไปยัง Agent Halo Dashboard/Overlay
-       │
-       ▼
-[7. Cross-Link Paired Cards & Summary Report]
+[6. Cross-Link Paired Cards & Summary Report]
     - อัปเดต Description ข้ามลิงก์หากันระหว่างการ์ดคู่ [BE] ⟷ [FE] ⟷ [QA] (`🔗 Related Tasks / Paired Cards`)
     - สรุปผลให้ User พร้อม Direct Markdown Links สำหรับเปิดดูการ์ดบน Trello
 ```
@@ -126,7 +122,6 @@ cd /Users/teerawat/tackingtask && pnpm tack move <CARD_ID> "<TARGET_LIST>"
 4. **Acceptance Criteria Mandatory**: ทุกการ์ดต้องมี Checklist ไม่น้อยกว่า 3 ข้อ
 5. **No Guesswork & Mandatory GitHub Verification (p8-altrarich)**: ต้องตรวจสอบความถูกต้องของ Schema, Service Logic, Controller, และ Entity จาก **GitHub Codebase จริงของโปรเจกต์ `p8-altrarich`** (`AD1-Copilot/p8-altrarich-*` เช่น `p8-altrarich-backend`, `p8-altrarich-frontend` บน `development` branch) ผ่าน GitHub CLI / API เสมอ เพื่อให้มั่นใจว่าอ้างอิงจากโค้ดเวอร์ชันล่าสุดของทีม ไม่เดาเองเด็ดขาด
 6. **User Confirmation Gate**: ต้องแสดงสรุป Spec & Tasks ให้ User ตรวจสอบและคอนเฟิร์มก่อนสร้างการ์ดจริงลง Trello ทุกครั้ง (ห้ามยิงสร้างทันทีโดย User ยังไม่เห็นชอบ)
-7. **Agent Halo Synchronization**: ต้องส่งสัญญาณสถานะและ URL การ์ดให้ Agent Halo รับทราบทุกครั้ง
-8. **Mandatory Native Card Attachment & Cross-Linking**: การ์ดงานที่เป็นคู่กันหรือเกี่ยวข้องกัน (เช่น `[BE]` กับ `[FE]`, `[BE]` กับ `[QA]`, หรือ Gateway Integration ครบชุด) จะต้องทำการ **ผูกการ์ดเข้าด้วยกันผ่าน Trello Native Card Attachment (แนบการ์ด Trello เข้าหากัน)** และใส่ Link URL ของการ์ดที่เกี่ยวข้อง (`🔗 Related Tasks / Paired Cards`) ใน Description ของกันและกันเสมอ ตามมาตรฐานของการ์ด #625 เพื่อให้ทีม Dev และ QA สามารถคลิกเปิดการ์ดคู่ที่แนบไว้ได้โดยตรงทันที
+7. **Mandatory Native Card Attachment & Cross-Linking**: การ์ดงานที่เป็นคู่กันหรือเกี่ยวข้องกัน (เช่น `[BE]` กับ `[FE]`, `[BE]` กับ `[QA]`, หรือ Gateway Integration ครบชุด) จะต้องทำการ **ผูกการ์ดเข้าด้วยกันผ่าน Trello Native Card Attachment (แนบการ์ด Trello เข้าหากัน)** และใส่ Link URL ของการ์ดที่เกี่ยวข้อง (`🔗 Related Tasks / Paired Cards`) ใน Description ของกันและกันเสมอ ตามมาตรฐานของการ์ด #625 เพื่อให้ทีม Dev และ QA สามารถคลิกเปิดการ์ดคู่ที่แนบไว้ได้โดยตรงทันที
 
 
