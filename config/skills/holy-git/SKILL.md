@@ -21,8 +21,11 @@ description: Altrix & GitHub Lifecycle Specialist Agent. Triggers when user ment
 ## 🧭 กระบวนการทำงาน (Altrix Workflow — D-205 Standard)
 
 ```
-1. Requirement / Issue Analysis & Opening
-   - เปิดการ์ด (Issue) ลงบน AD1-Copilot/altrix
+1. Requirement / Issue Pre-Flight Search & Deduplication Gate (🛑 ป้องกันการ์ดซ้ำ 100%)
+   - ค้นหา Issue เดิมทั้ง OPEN/CLOSED: `gh issue list --repo AD1-Copilot/altrix --search "<keyword>" --state all --limit 10`
+   - ตรวจสอบ In-flight Tasks เพื่อไม่ให้ตัด Scope ซ้ำหรือชนกับงานที่กำลังทำ
+   - หากพบการ์ดเดิม ให้ต่อยอดหรือคอมเมนต์ลงในการ์ดเดิม ห้ามเปิดการ์ดใหม่ซ้ำ
+   - เปิดการ์ดใหม่ (Issue) ลงบน AD1-Copilot/altrix พร้อม Idempotency Guard (ห้าม retry ซ้ำหาก timeout)
    - ตกคอลัมน์ Proposed อัตโนมัติ (แจ้งเตือนห้อง #ai-avenger)
    - MM เป็นคนรับการ์ดคนเดียว ตอบภายในวันทำการ ระบุ Holder: ใน §7
        │
@@ -175,10 +178,17 @@ Closes #<ISSUE_NUMBER>
 gh issue view <ISSUE_NUMBER> --repo AD1-Copilot/altrix --comments
 gh issue list --repo AD1-Copilot/altrix
 
-# 2. สร้าง Issue ใหม่ (การ์ดจะตก Proposed อัตโนมัติ MM รับคนเดียว)
+# 2. Pre-flight Check & สร้าง Issue ใหม่อย่างปลอดภัย (ป้องกันการ์ดซ้ำ 100%)
+# ก. Pre-flight Search: ค้นหาก่อนว่ามี Issue เดิมที่ครอบคลุมเรื่องนี้อยู่แล้วหรือไม่
+gh issue list --repo AD1-Copilot/altrix --search "<Keyword>" --state all --limit 10
+
+# ข. สร้าง Issue ใหม่ (เมื่อตรวจสอบแล้วว่าไม่มีการ์ดซ้ำ)
 gh issue create --repo AD1-Copilot/altrix \
   --title "<Scope/Area>: <Feature Title>" \
   --body "<ISSUE_BODY_MARKDOWN>"
+
+# ค. หากคำสั่งค้าง ช้า หรือหลุด Timeout ห้าม retry ทันที! ให้รันเช็กก่อน:
+gh issue list --repo AD1-Copilot/altrix --limit 5
 
 # 3. Assign การ์ดให้ตัวเอง (เมื่อสถานะเป็นการ์ด Ready แล้วจะเริ่มทำ)
 gh issue edit <ISSUE_NUMBER> --repo AD1-Copilot/altrix --add-assignee @me
@@ -252,6 +262,9 @@ gh pr create --repo AD1-Copilot/altrix \
 11. **The One Look Principle (D-204 / D-205):** ในขั้นตอน Proposal การ์ดจะได้รับการตรวจเชิงลึกจาก Reviewer (GG ด้าน Contract/Backend หรือ QQ ด้าน UI) เพียง **1 ครั้งเท่านั้น (The One Look)** ความเห็นทางเทคนิคเพิ่มเติมหลังจากนั้นถือเป็น **"Delta Note / Comment" ไม่ใช่รอบตรวจที่สอง** เมื่อสเปกและ Appetite ตกผลึกแล้ว **ต้องส่งตรงหาคุณฝ้ายทันที ห้ามส่งวนกลับไปให้ GG หรือ Reviewer คนเดิมตรวจซ้ำ** เพื่อป้องกันการวนลูป (No review cycle churn)
 12. **Dev Baseline & In-Flight Spine Awareness (D-142 / Verification Awareness):** ก่อนตัดการ์ดใหม่หรือกำหนด Proof Rule ต้องตรวจสอบสถานะ Verification บน Dev และ In-flight Tasks เสมอ: หาก Dev มีผลเทสต์ติด RED อยู่ก่อน (เช่น Known Regressions ที่มี Issue รองรับอยู่แล้วอย่าง #413 / PP-08) หรือมีงานที่กำลังแตะ Shared Spine (เช่น `control.tsx`, Layout, Auth, Session) ต้องระบุ `Depends on:` หรือแยก Consumers touched / Out of scope ให้ชัดเจน และต้องไม่เหมาว่า Defect เดิมที่มีอยู่ก่อนเกิดจากการ์ดใหม่
 13. **UI Codebase Integrity & In-Component Cohesion (UI ห้ามบอด — อิง Codebase จริง และทำใน Component เดียวกัน):**
-    - **ห้ามจินตนาการ UI นอกระบบ:** ก่อนวาด UI ตัวอย่าง ต้องอ่านโค้ดจริงใน `Card.tsx`, `planes.ts`, `measured.ts` และ Component เป้าหมายเสมอ
     - **Altrix Hybrid Skin:** Shell ด้านนอกเป็น Dark Navy (`#181339` / `#1C1842`) แต่เนื้อหาการ์ด (Content Panel / Table) ต้องเป็น **Light Islands (`Card.tsx` / `CONTENT_WARM` `#FAF7F0` / `#FFFFFF`)** ห้ามทำ Dark Card ลอยแปลกแยกเด็ดขาด
     - **In-Component Cohesion:** งานปรับปรุง UI (เช่น Banner, Alert, Action Panel) ต้องออกแบบให้อยู่ **ภายใน Component เป้าหมายเดียวกัน** โดยใช้ Primitives ของระบบ (`Card`, `StatusPill`, `CtaButton`, `GhostButton`) ไม่ใช่สร้าง Widget ลอยภายนอก
+14. **Anti-Duplicate & Idempotent Issue Creation Protocol (D-205 / D-142 กฎเหล็กป้องกันการ์ดซ้ำ 100%):**
+    - **Pre-flight Search Gate:** ห้ามรัน `gh issue create` โดยเด็ดขาดจนกว่าจะทำการค้นหาด้วย `gh issue list --repo AD1-Copilot/altrix --search "<keyword>" --state all --limit 10` หากพบ Issue เดิมที่มี Scope เดียวกันหรือคล้ายกัน ให้คอมเมนต์ต่อยอดในการ์ดเดิม ห้ามเปิดการ์ดใหม่ซ้ำ
+    - **Anti-CLI-Retry Trap (Idempotency Guard):** เมื่อยิงคำสั่ง `gh issue create` หากเกิดเน็ตค้าง ช้า หรือ timeout **ห้ามรันคำสั่งซ้ำทันทีเด็ดขาด** ต้องรัน `gh issue list --repo AD1-Copilot/altrix --limit 5` ตรวจสอบก่อนว่า Issue ถูกสร้างขึ้นบน GitHub เรียบร้อยแล้วหรือไม่ เพื่อป้องกัน Double Submit จาก CLI Retry ซ้ำ 100%
+    - **Single Proposal Cohesion:** ฟีเจอร์ที่อยู่ใน Blueprint หรือโดเมนเดียวกัน (เช่น Billing, Statements, Payout, Reports) ห้ามแตก Proposal ย่อยหลายใบที่สร้างความขัดแย้งของตัวเลขและสเปก ให้รวบรวมเป็น Proposal เดียวและรอ Fai's word ก่อนแตก Task ย่อย
