@@ -31,6 +31,9 @@ Skill นี้ถูกออกแบบมาสำหรับระบบ *
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`sahatool`** | `1251449255` | SPX Express / Shopee | **ช่องทางอื่นๆ** | **ร้านค้าออนไลน์ (Online shop/E-Commerce)** | **`SAHATOOLS. (Shopee)`** |
 | **`anucha070838`** | `31650165` | SPX Express / Shopee | **ช่องทางอื่นๆ** | **ร้านค้าออนไลน์ (Online shop/E-Commerce)** | **`AB (Shopee)`** |
+| **`Lazada`** (หรือผู้ขาย Lazada Limited) | - | Lazada Tax Invoice | **ช่องทางอื่นๆ** | **ร้านค้าออนไลน์ (Online shop/E-Commerce)** | **`LAZADA`** |
+| **`TikTok Shop`** (TikTok Shop (Thailand) Ltd.) | - | TikTok Shop Tax Invoice / Receipt | **ช่องทางอื่นๆ** | **ร้านค้าออนไลน์ (Online shop/E-Commerce)** | **`TikTok Shop`** |
+| **`Thai Happy Logistics`** (Thai Happy Logistics Ltd.) | - | Thai Happy Logistics Receipt | **ช่องทางอื่นๆ** | **ร้านค้าออนไลน์ (Online shop/E-Commerce)** | **`TikTok Shop`** |
 | *อื่นๆ หรือไม่พบบิล* | *ไม่ตรง* | - | 🛑 **ห้ามบันทึก** | 🛑 **หยุดทำงานทันที** | 🛑 **แจ้งผู้ใช้เพื่อขอคำยืนยัน** |
 
 ---
@@ -62,6 +65,8 @@ Skill นี้ถูกออกแบบมาสำหรับระบบ *
         └── 6. แสดง Alert สีเขียว: "✅ บันทึกสำเร็จ"
                  ↓
 [หน่วงเวลา Human Pacing 1.5 - 2 วินาที ป้องกัน Rate Limit]
+                 ↓
+[เมื่อเสร็จสิ้นรอบการทำงาน ➔ ล้างไฟล์รูปภาพแคชชั่วคราวอัตโนมัติ (Auto-Cleanup)]
 ```
 
 ---
@@ -175,6 +180,12 @@ window.processExpensePayment = async function(expectedSerial, channelName) {
   }
   return { success: true, serial: expectedSerial };
 };
+```
+
+### 4. Auto-Cleanup Temporary Images (ล้างแคชรูปภาพชั่วคราว)
+```bash
+# เมื่อเสร็จสิ้นกระบวนการในแต่ละรอบ ล้างไฟล์รูปภาพชั่วคราวที่ใช้ทำ OCR ทันทีเพื่อประหยัดพื้นที่ดิสก์
+rm -rf "$SCRATCH_IMAGE_DIR"/*
 ```
 
 ---
